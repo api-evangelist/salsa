@@ -1,0 +1,754 @@
+openapi: 3.0.1
+info:
+  title: Salsa Payroll API
+  description: >-
+    Representative OpenAPI description of the Salsa embedded payroll REST API.
+    Salsa is partner-gated payroll infrastructure - approved platform partners
+    receive separate sandbox and production Bearer API keys and use these
+    endpoints to provision employers and workers, run payroll, disburse worker
+    payments, configure tax, and manage webhooks for US and Canada. This is a
+    faithful, representative subset of the surface documented at
+    https://docs.salsa.dev/reference and is not the vendor's official machine
+    specification.
+  termsOfService: https://www.salsa.dev/legal
+  contact:
+    name: Salsa Support
+    url: https://docs.salsa.dev/
+  version: rest-v1
+servers:
+  - url: https://api.salsa.dev/api/rest/v1
+    description: Production (partner production API key)
+  - url: https://api.sandbox.salsa.dev/api/rest/v1
+    description: Sandbox (partner sandbox API key)
+security:
+  - bearerAuth: []
+tags:
+  - name: Companies
+    description: Employer (company) entities and configuration.
+  - name: Workers
+    description: Employees and contractors.
+  - name: Pay Schedules
+    description: Worker pay groups and work weeks.
+  - name: Payrolls
+    description: Payroll runs and reports.
+  - name: Payments
+    description: Individual worker payments and disbursements.
+  - name: Onboarding & Sessions
+    description: User tokens, hosted onboarding, and mock onboarding.
+  - name: Tax
+    description: Employer and worker tax setup.
+  - name: Webhooks
+    description: Webhook endpoint management.
+paths:
+  /employers:
+    post:
+      operationId: createEmployer
+      tags: [Companies]
+      summary: Create an employer (company).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployerCreate'
+      responses:
+        '201':
+          description: Employer created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employer'
+    get:
+      operationId: listEmployers
+      tags: [Companies]
+      summary: Retrieve employers.
+      responses:
+        '200':
+          description: A list of employers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employer'
+  /employers/{employerId}:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: getEmployer
+      tags: [Companies]
+      summary: Retrieve an employer.
+      responses:
+        '200':
+          description: The employer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employer'
+    patch:
+      operationId: updateEmployer
+      tags: [Companies]
+      summary: Update an employer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployerCreate'
+      responses:
+        '200':
+          description: The updated employer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employer'
+    delete:
+      operationId: deleteEmployer
+      tags: [Companies]
+      summary: Delete an employer.
+      responses:
+        '204':
+          description: Deleted.
+  /employers/{employerId}/pay-types:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: listPayTypes
+      tags: [Companies]
+      summary: List an employer's pay types.
+      responses:
+        '200':
+          description: A list of pay types.
+    post:
+      operationId: createPayType
+      tags: [Companies]
+      summary: Create a pay type for an employer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Pay type created.
+  /employers/{employerId}/bank-accounts:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: listEmployerBankAccounts
+      tags: [Companies]
+      summary: List an employer's bank accounts.
+      responses:
+        '200':
+          description: A list of bank accounts.
+    post:
+      operationId: createEmployerBankAccount
+      tags: [Companies]
+      summary: Create a bank account for an employer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Bank account created.
+  /employers/{employerId}/workers:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: createWorker
+      tags: [Workers]
+      summary: Create a worker.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkerCreate'
+      responses:
+        '201':
+          description: Worker created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Worker'
+    get:
+      operationId: listWorkers
+      tags: [Workers]
+      summary: Retrieve an employer's workers.
+      responses:
+        '200':
+          description: A list of workers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Worker'
+  /employers/{employerId}/workers/{workerId}:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/WorkerId'
+    get:
+      operationId: getWorker
+      tags: [Workers]
+      summary: Retrieve a worker.
+      responses:
+        '200':
+          description: The worker.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Worker'
+    patch:
+      operationId: updateWorker
+      tags: [Workers]
+      summary: Update a worker.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkerCreate'
+      responses:
+        '200':
+          description: The updated worker.
+    delete:
+      operationId: deleteWorker
+      tags: [Workers]
+      summary: Delete a worker.
+      responses:
+        '204':
+          description: Deleted.
+  /employers/{employerId}/workers/{workerId}/contracts:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/WorkerId'
+    get:
+      operationId: listWorkerContracts
+      tags: [Workers]
+      summary: List a worker's contracts.
+      responses:
+        '200':
+          description: A list of contracts.
+    post:
+      operationId: createWorkerContract
+      tags: [Workers]
+      summary: Create a worker contract (W-2 employee or 1099 contractor terms).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Contract created.
+  /employers/{employerId}/workers/{workerId}/bank-accounts:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/WorkerId'
+    get:
+      operationId: listWorkerBankAccounts
+      tags: [Workers]
+      summary: List a worker's bank accounts.
+      responses:
+        '200':
+          description: A list of bank accounts.
+    post:
+      operationId: createWorkerBankAccount
+      tags: [Workers]
+      summary: Create a bank account for a worker.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Bank account created.
+  /employers/{employerId}/worker-pay-groups:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: listWorkerPayGroups
+      tags: [Pay Schedules]
+      summary: List an employer's worker pay groups (pay schedules).
+      responses:
+        '200':
+          description: A list of pay groups.
+    post:
+      operationId: createWorkerPayGroup
+      tags: [Pay Schedules]
+      summary: Create a worker pay group defining pay frequency and cadence.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Pay group created.
+  /employers/{employerId}/work-weeks:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: listWorkWeeks
+      tags: [Pay Schedules]
+      summary: List an employer's work weeks.
+      responses:
+        '200':
+          description: A list of work weeks.
+    post:
+      operationId: createWorkWeek
+      tags: [Pay Schedules]
+      summary: Create a work week for an employer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Work week created.
+  /employers/{employerId}/payroll-runs:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: createPayrollRun
+      tags: [Payrolls]
+      summary: Create a payroll run.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayrollRunCreate'
+      responses:
+        '201':
+          description: Payroll run created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayrollRun'
+    get:
+      operationId: listPayrollRuns
+      tags: [Payrolls]
+      summary: Retrieve payroll runs.
+      responses:
+        '200':
+          description: A list of payroll runs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayrollRun'
+  /employers/{employerId}/payroll-runs/{payrollRunId}:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/PayrollRunId'
+    get:
+      operationId: getPayrollRun
+      tags: [Payrolls]
+      summary: Retrieve a payroll run.
+      responses:
+        '200':
+          description: The payroll run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayrollRun'
+    delete:
+      operationId: deletePayrollRun
+      tags: [Payrolls]
+      summary: Delete a payroll run.
+      responses:
+        '204':
+          description: Deleted.
+  /employers/{employerId}/payroll-runs/{payrollRunId}/preview:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/PayrollRunId'
+    post:
+      operationId: previewPayrollRun
+      tags: [Payrolls]
+      summary: Preview a payroll run (calculated gross-to-net before confirmation).
+      responses:
+        '200':
+          description: Payroll run preview.
+  /employers/{employerId}/payroll-runs/{payrollRunId}/confirm:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/PayrollRunId'
+    post:
+      operationId: confirmPayrollRun
+      tags: [Payrolls]
+      summary: Confirm a payroll run and initiate funding and disbursement.
+      responses:
+        '200':
+          description: Payroll run confirmed.
+  /employers/{employerId}/reports/payroll-journal:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: getPayrollJournalReport
+      tags: [Payrolls]
+      summary: Retrieve the payroll journal report.
+      responses:
+        '200':
+          description: The payroll journal report.
+  /employers/{employerId}/workers/{workerId}/payments:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/WorkerId'
+    post:
+      operationId: createWorkerPayment
+      tags: [Payments]
+      summary: Create a worker payment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Worker payment created.
+    get:
+      operationId: listWorkerPayments
+      tags: [Payments]
+      summary: Retrieve a worker's payments.
+      responses:
+        '200':
+          description: A list of worker payments.
+  /employers/{employerId}/workers/{workerId}/payments/{paymentId}/confirm:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/WorkerId'
+      - name: paymentId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: confirmWorkerPayment
+      tags: [Payments]
+      summary: Confirm a worker payment for disbursement.
+      responses:
+        '200':
+          description: Payment confirmed.
+  /employers/{employerId}/workers/{workerId}/payments/{paymentId}/deductions:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+      - $ref: '#/components/parameters/WorkerId'
+      - name: paymentId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: createPaymentDeduction
+      tags: [Payments]
+      summary: Add a deduction to a worker payment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Deduction created.
+  /user-tokens:
+    post:
+      operationId: createUserToken
+      tags: [Onboarding & Sessions]
+      summary: Create a scoped user API token (e.g. EMPLOYER_ADMIN) for the embeddable UI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserTokenCreate'
+      responses:
+        '201':
+          description: A user token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserToken'
+  /employers/{employerId}/hosted-onboardings:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: createHostedEmployerOnboarding
+      tags: [Onboarding & Sessions]
+      summary: Create a hosted onboarding flow for an employer.
+      responses:
+        '201':
+          description: Hosted onboarding created.
+  /employers/{employerId}/mock-onboard:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: mockOnboardEmployer
+      tags: [Onboarding & Sessions]
+      summary: Simulate employer onboarding (sandbox only).
+      responses:
+        '200':
+          description: Employer mock-onboarded.
+  /employers/{employerId}/workers/mock-onboard:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: mockOnboardWorker
+      tags: [Onboarding & Sessions]
+      summary: Simulate worker onboarding (sandbox only).
+      responses:
+        '200':
+          description: Worker mock-onboarded.
+  /employers/{employerId}/taxes-setup:
+    parameters:
+      - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: getEmployerTaxSetup
+      tags: [Tax]
+      summary: Retrieve an employer's tax setup and withholding configuration.
+      responses:
+        '200':
+          description: Employer tax setup.
+  /webhook-endpoints:
+    post:
+      operationId: createWebhookEndpoint
+      tags: [Webhooks]
+      summary: Register a webhook endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointCreate'
+      responses:
+        '201':
+          description: Webhook endpoint created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+    get:
+      operationId: listWebhookEndpoints
+      tags: [Webhooks]
+      summary: Retrieve all webhook endpoints.
+      responses:
+        '200':
+          description: A list of webhook endpoints.
+  /webhook-endpoints/{webhookEndpointId}:
+    parameters:
+      - name: webhookEndpointId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getWebhookEndpoint
+      tags: [Webhooks]
+      summary: Retrieve a webhook endpoint.
+      responses:
+        '200':
+          description: The webhook endpoint.
+    patch:
+      operationId: updateWebhookEndpoint
+      tags: [Webhooks]
+      summary: Update a webhook endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointCreate'
+      responses:
+        '200':
+          description: The updated webhook endpoint.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Partner Bearer API key. Approved Salsa platform partners receive
+        separate sandbox and production keys. Send as
+        `Authorization: Bearer ${YOUR_API_TOKEN}`.
+  parameters:
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
+    WorkerId:
+      name: workerId
+      in: path
+      required: true
+      description: The worker identifier.
+      schema:
+        type: string
+    PayrollRunId:
+      name: payrollRunId
+      in: path
+      required: true
+      description: The payroll run identifier.
+      schema:
+        type: string
+  schemas:
+    Employer:
+      type: object
+      properties:
+        id:
+          type: string
+        businessName:
+          type: string
+        country:
+          type: string
+          enum: [US, CA]
+        onboardingStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    EmployerCreate:
+      type: object
+      required: [businessName, country]
+      properties:
+        businessName:
+          type: string
+        country:
+          type: string
+          enum: [US, CA]
+        address:
+          type: object
+        ein:
+          type: string
+          description: US Employer Identification Number (or CA business number).
+    Worker:
+      type: object
+      properties:
+        id:
+          type: string
+        employerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        workerType:
+          type: string
+          enum: [EMPLOYEE, CONTRACTOR]
+        onboardingStatus:
+          type: string
+    WorkerCreate:
+      type: object
+      required: [firstName, lastName, workerType]
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        workerType:
+          type: string
+          enum: [EMPLOYEE, CONTRACTOR]
+    PayrollRun:
+      type: object
+      properties:
+        id:
+          type: string
+        employerId:
+          type: string
+        workerPayGroupId:
+          type: string
+        payPeriodStart:
+          type: string
+          format: date
+        payPeriodEnd:
+          type: string
+          format: date
+        payDate:
+          type: string
+          format: date
+        status:
+          type: string
+    PayrollRunCreate:
+      type: object
+      required: [workerPayGroupId, payPeriodStart, payPeriodEnd, payDate]
+      properties:
+        workerPayGroupId:
+          type: string
+        payPeriodStart:
+          type: string
+          format: date
+        payPeriodEnd:
+          type: string
+          format: date
+        payDate:
+          type: string
+          format: date
+    UserTokenCreate:
+      type: object
+      required: [employerId, role]
+      properties:
+        employerId:
+          type: string
+        role:
+          type: string
+          enum: [EMPLOYER_ADMIN, WORKER]
+    UserToken:
+      type: object
+      properties:
+        token:
+          type: string
+        role:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+    WebhookEndpointCreate:
+      type: object
+      required: [url]
+      properties:
+        url:
+          type: string
+          format: uri
+        eventTypes:
+          type: array
+          items:
+            type: string
+          example:
+            - Employer.created
+            - Worker.created
+            - PayrollRun.statusChanged
+            - Transmission.completed
+    WebhookEndpoint:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        eventTypes:
+          type: array
+          items:
+            type: string
+        secret:
+          type: string
+          description: Signing secret used to verify webhook payloads.

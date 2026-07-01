@@ -1,0 +1,117 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Salsa
+providerId: salsa
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Payroll
+- Embedded Finance
+- Payroll as a Service
+- Fintech
+- Plans
+description: >-
+  Salsa does not publish public self-serve API pricing. It is partner-gated
+  embedded payroll infrastructure sold to SaaS platforms under a sales-quoted
+  contract, typically priced per-employee-per-month (PEPM) for active paid
+  workers, often with a platform base fee and volume tiers. Sandbox access and
+  API keys are granted to approved partners; production access requires a
+  signed partner agreement. All figures below are structural placeholders -
+  actual rates are quoted by Salsa sales and are not published.
+notes: >-
+  No public price list. Contact Salsa sales for a partner quote. Reconcile PEPM,
+  base platform fee, and any per-transaction or off-cycle payment fees during a
+  partner engagement.
+sources:
+- https://www.salsa.dev/
+- https://www.salsa.dev/product
+- https://docs.salsa.dev/docs/building-with-salsa
+plans:
+- id: salsa-sandbox
+  name: Sandbox
+  type: free
+  description: >-
+    Free sandbox environment for approved partners to build and test against the
+    full API surface using mock-onboard helpers and test data. Requires partner
+    sandbox API key.
+  entries:
+  - label: Sandbox Access
+    name: sandbox
+    type: flat
+    metric: access
+    limit: -1
+    timeFrame: month
+    geo: US-CA
+    unit: 1
+    price: $0 (partner onboarding required)
+    userMultiplied: false
+  elements:
+  - name: REST API
+  - name: GraphQL API
+  - name: Salsa Express UI Components
+  - name: Webhooks
+  - name: Mock Onboarding
+- id: salsa-partner-pepm
+  name: Partner (PEPM)
+  type: usage
+  description: >-
+    Production embedded payroll for platform partners, priced per active paid
+    worker per month (PEPM), typically with a platform base fee and volume
+    tiering. Rates are sales-quoted and not published.
+  entries:
+  - label: Per Employee Per Month
+    name: pepm
+    type: usage
+    metric: workers
+    limit: -1
+    timeFrame: month
+    geo: US-CA
+    unit: 1
+    price: contact sales (sales-quoted PEPM)
+    userMultiplied: true
+  - label: Platform Base Fee
+    name: platform_base_fee
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: US-CA
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Companies API
+  - name: Workers API
+  - name: Pay Schedules API
+  - name: Payrolls API
+  - name: Payments API
+  - name: Onboarding & Sessions API
+  - name: Tax API
+  - name: Webhooks API
+- id: salsa-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Volume commitments, custom money-movement and tax-filing configurations,
+    dedicated support, and negotiated terms for larger platform partners.
+    Contact Salsa sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: US-CA
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume PEPM
+  - name: Dedicated Support
+  - name: Advanced (GraphQL) Configuration
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

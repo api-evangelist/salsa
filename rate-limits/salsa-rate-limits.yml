@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Salsa
+providerId: salsa
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Payroll
+- Embedded Finance
+- Fintech
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Salsa is a partner-gated embedded payroll API and does not publish specific
+  public rate-limit thresholds. Access is scoped to a partner API key (separate
+  sandbox and production keys), and per-endpoint request limits are governed by
+  the partner agreement. Standard HTTP 429 throttling with Retry-After and
+  exponential backoff should be assumed. Money-movement and payroll-run
+  operations are additionally gated by employer account standing, funding
+  readiness, and onboarding status rather than by raw request throughput.
+notes: >-
+  Confirm concrete RPS/RPM limits, burst behavior, and any per-employer or
+  per-partner concurrency caps with Salsa during partner onboarding. Values are
+  not published publicly.
+sources:
+- https://docs.salsa.dev/reference
+- https://docs.salsa.dev/docs/building-with-salsa
+responseCodes:
+  throttled: 429
+limits:
+- name: Partner Request Rate
+  scope: partner
+  metric: requests
+  limit: see partner agreement
+  notes: Per partner API key; separate sandbox and production keys. Not published publicly.
+- name: Per-Employer Operations
+  scope: employer
+  metric: requests
+  limit: see partner agreement
+  notes: Operations are additionally constrained by employer onboarding status and account standing.
+- name: Payroll Run Concurrency
+  scope: employer
+  metric: jobs
+  limit: gated by readiness
+  notes: Payroll runs require funding readiness and pass through preview/confirm state gates, not raw throughput.
+policies:
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on HTTP 429.
+- name: Readiness Gating
+  description: Money-movement endpoints depend on employer/worker onboarding and account-standing state, surfaced via webhooks, rather than only rate limits.
+- name: Environment Separation
+  description: Sandbox and production use distinct base URLs and distinct API keys; limits and quotas are governed per environment.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

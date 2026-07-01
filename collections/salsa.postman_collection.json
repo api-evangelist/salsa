@@ -1,0 +1,327 @@
+{
+  "item": [
+    {
+      "name": "Companies",
+      "description": { "content": "Employer (company) entities and configuration.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Create an employer (company).",
+          "request": {
+            "url": {
+              "path": ["employers"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"businessName\": \"<string>\",\n  \"country\": \"US\",\n  \"ein\": \"<string>\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve employers.",
+          "request": {
+            "url": { "path": ["employers"], "host": ["{{baseUrl}}"], "query": [], "variable": [] },
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve an employer.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [ { "key": "employerId", "value": "<string>" } ]
+            },
+            "method": "GET"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Workers",
+      "description": { "content": "Employees and contractors.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Create a worker.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "workers"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [ { "key": "employerId", "value": "<string>" } ]
+            },
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"workerType\": \"EMPLOYEE\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve workers.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "workers"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [ { "key": "employerId", "value": "<string>" } ]
+            },
+            "method": "GET"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pay Schedules",
+      "description": { "content": "Worker pay groups and work weeks.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Create a worker pay group.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "worker-pay-groups"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [ { "key": "employerId", "value": "<string>" } ]
+            },
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "method": "POST",
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a work week.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "work-weeks"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [ { "key": "employerId", "value": "<string>" } ]
+            },
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "method": "POST",
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payrolls",
+      "description": { "content": "Payroll runs and reports.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Create a payroll run.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "payroll-runs"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [ { "key": "employerId", "value": "<string>" } ]
+            },
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workerPayGroupId\": \"<string>\",\n  \"payPeriodStart\": \"<date>\",\n  \"payPeriodEnd\": \"<date>\",\n  \"payDate\": \"<date>\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Preview a payroll run.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "payroll-runs", ":payrollRunId", "preview"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [
+                { "key": "employerId", "value": "<string>" },
+                { "key": "payrollRunId", "value": "<string>" }
+              ]
+            },
+            "method": "POST"
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm a payroll run.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "payroll-runs", ":payrollRunId", "confirm"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [
+                { "key": "employerId", "value": "<string>" },
+                { "key": "payrollRunId", "value": "<string>" }
+              ]
+            },
+            "method": "POST"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "description": { "content": "Individual worker payments and disbursements.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Create a worker payment.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "workers", ":workerId", "payments"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [
+                { "key": "employerId", "value": "<string>" },
+                { "key": "workerId", "value": "<string>" }
+              ]
+            },
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "method": "POST",
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } }
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm a worker payment.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "workers", ":workerId", "payments", ":paymentId", "confirm"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [
+                { "key": "employerId", "value": "<string>" },
+                { "key": "workerId", "value": "<string>" },
+                { "key": "paymentId", "value": "<string>" }
+              ]
+            },
+            "method": "POST"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Onboarding & Sessions",
+      "description": { "content": "User tokens, hosted onboarding, and mock onboarding.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Create a user API token.",
+          "request": {
+            "url": { "path": ["user-tokens"], "host": ["{{baseUrl}}"], "query": [], "variable": [] },
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employerId\": \"<string>\",\n  \"role\": \"EMPLOYER_ADMIN\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mock-onboard an employer (sandbox).",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "mock-onboard"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [ { "key": "employerId", "value": "<string>" } ]
+            },
+            "method": "POST"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tax",
+      "description": { "content": "Employer and worker tax setup.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Retrieve employer tax setup.",
+          "request": {
+            "url": {
+              "path": ["employers", ":employerId", "taxes-setup"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [ { "key": "employerId", "value": "<string>" } ]
+            },
+            "method": "GET"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "description": { "content": "Webhook endpoint management.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Register a webhook endpoint.",
+          "request": {
+            "url": { "path": ["webhook-endpoints"], "host": ["{{baseUrl}}"], "query": [], "variable": [] },
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<uri>\",\n  \"eventTypes\": [\"Employer.created\", \"PayrollRun.statusChanged\"]\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve all webhook endpoints.",
+          "request": {
+            "url": { "path": ["webhook-endpoints"], "host": ["{{baseUrl}}"], "query": [], "variable": [] },
+            "method": "GET"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.salsa.dev/api/rest/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{bearerToken}}" }
+    ]
+  },
+  "info": {
+    "_postman_id": "b2f7a1c4-5d3e-4a92-9c81-7e6f0a2d3b41",
+    "name": "Salsa Payroll API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative Postman collection for the Salsa embedded payroll REST API (partner-gated; separate sandbox and production Bearer API keys). Base URL https://api.salsa.dev/api/rest/v1; sandbox https://api.sandbox.salsa.dev/api/rest/v1.\n\nDocs: https://docs.salsa.dev/",
+      "type": "text/plain"
+    }
+  }
+}

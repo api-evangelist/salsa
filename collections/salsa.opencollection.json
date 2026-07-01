@@ -1,0 +1,340 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salsa Payroll API",
+    "version": "rest-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an employer (company).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"businessName\": \"\",\n  \"country\": \"US\"\n}"
+            }
+          },
+          "docs": "Create an employer (company) entity."
+        },
+        {
+          "info": {
+            "name": "Retrieve employers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers"
+          },
+          "docs": "Retrieve the partner's employers."
+        },
+        {
+          "info": {
+            "name": "Retrieve an employer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" }
+            ]
+          },
+          "docs": "Retrieve a single employer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a worker.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"firstName\": \"\",\n  \"lastName\": \"\",\n  \"workerType\": \"EMPLOYEE\"\n}"
+            }
+          },
+          "docs": "Create a W-2 employee or 1099 contractor under an employer."
+        },
+        {
+          "info": {
+            "name": "Retrieve workers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" }
+            ]
+          },
+          "docs": "Retrieve an employer's workers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pay Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a worker pay group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/worker-pay-groups",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a worker pay group (pay schedule) defining frequency and cadence."
+        },
+        {
+          "info": {
+            "name": "Create a work week.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/work-weeks",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a work week for an employer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payrolls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a payroll run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"workerPayGroupId\": \"\",\n  \"payPeriodStart\": \"\",\n  \"payPeriodEnd\": \"\",\n  \"payDate\": \"\"\n}"
+            }
+          },
+          "docs": "Create a payroll run for a pay group."
+        },
+        {
+          "info": {
+            "name": "Preview a payroll run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs/:payrollRunId/preview",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" },
+              { "name": "payrollRunId", "value": "", "type": "path" }
+            ]
+          },
+          "docs": "Preview calculated gross-to-net before confirming."
+        },
+        {
+          "info": {
+            "name": "Confirm a payroll run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs/:payrollRunId/confirm",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" },
+              { "name": "payrollRunId", "value": "", "type": "path" }
+            ]
+          },
+          "docs": "Confirm a payroll run and initiate funding and disbursement."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a worker payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/payments",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" },
+              { "name": "workerId", "value": "", "type": "path" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an individual worker payment (off-cycle or per-worker)."
+        },
+        {
+          "info": {
+            "name": "Confirm a worker payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/payments/:paymentId/confirm",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" },
+              { "name": "workerId", "value": "", "type": "path" },
+              { "name": "paymentId", "value": "", "type": "path" }
+            ]
+          },
+          "docs": "Confirm a worker payment for disbursement."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Onboarding & Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a user API token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/user-tokens",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"employerId\": \"\",\n  \"role\": \"EMPLOYER_ADMIN\"\n}"
+            }
+          },
+          "docs": "Mint a scoped user token that powers the embeddable Salsa Express UI."
+        },
+        {
+          "info": {
+            "name": "Mock-onboard an employer (sandbox).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/mock-onboard",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" }
+            ]
+          },
+          "docs": "Simulate employer onboarding in the sandbox."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tax",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve employer tax setup.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/taxes-setup",
+            "params": [
+              { "name": "employerId", "value": "", "type": "path" }
+            ]
+          },
+          "docs": "Retrieve an employer's tax setup and withholding configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register a webhook endpoint.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/webhook-endpoints",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"url\": \"\",\n  \"eventTypes\": [\"Employer.created\", \"PayrollRun.statusChanged\"]\n}"
+            }
+          },
+          "docs": "Register a webhook endpoint to receive real-time events."
+        },
+        {
+          "info": {
+            "name": "Retrieve all webhook endpoints.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/webhook-endpoints"
+          },
+          "docs": "Retrieve all registered webhook endpoints."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

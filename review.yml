@@ -1,0 +1,105 @@
+aid: salsa
+name: Salsa
+review:
+  question: Does Salsa expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-01'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Salsa's asynchronous surface is delivered
+    as outbound HTTP webhooks (POST callbacks to partner-registered endpoints),
+    not as WebSocket or Server-Sent Events. Under current API Evangelist scope,
+    a webhook catalog is documented in the review findings and modeled via the
+    Webhooks API surface in apis.yml rather than as a streaming AsyncAPI channel.
+findings:
+  summary: |
+    Salsa does not publish a documented public WebSocket API. Salsa is
+    partner-gated embedded payroll infrastructure exposing a REST API under
+    https://api.salsa.dev/api/rest/v1 (sandbox at
+    https://api.sandbox.salsa.dev/api/rest/v1) plus a GraphQL API (Salsa
+    Advanced) and embeddable browser UI components (Salsa Express, loaded via a
+    Salsa.js library). Real-time delivery to partners is via outbound webhooks
+    (server-to-server HTTP callbacks) to endpoints registered through
+    /webhook-endpoints - a request/response and callback model, not a
+    bidirectional WebSocket (ws:// / wss://) transport. No realtime WebSocket
+    endpoint is documented.
+  accessModel: |
+    API access is partner-gated. Approved platform partners receive separate
+    sandbox and production Bearer API keys. Self-serve public signup and public
+    price lists are not offered; production access requires a partner agreement.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.salsa.dev/api/rest/v1
+      documented: true
+    - protocol: GraphQL
+      scheme: https
+      note: Salsa Advanced GraphQL API and playground for deeper customization.
+      documented: true
+    - protocol: Webhooks
+      scheme: https
+      note: Outbound HTTP callbacks to partner-registered endpoints; signed with a per-endpoint secret. Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Salsa's API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api.salsa.dev/api/rest/v1/employers
+    - GET    https://api.salsa.dev/api/rest/v1/employers
+    - GET    https://api.salsa.dev/api/rest/v1/employers/{employerId}
+    - PATCH  https://api.salsa.dev/api/rest/v1/employers/{employerId}
+    - DELETE https://api.salsa.dev/api/rest/v1/employers/{employerId}
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/workers
+    - GET    https://api.salsa.dev/api/rest/v1/employers/{employerId}/workers
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/worker-pay-groups
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/work-weeks
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/payroll-runs
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/payroll-runs/{id}/preview
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/payroll-runs/{id}/confirm
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/workers/{workerId}/payments
+    - POST   https://api.salsa.dev/api/rest/v1/user-tokens
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/hosted-onboardings
+    - POST   https://api.salsa.dev/api/rest/v1/employers/{employerId}/mock-onboard
+    - POST   https://api.salsa.dev/api/rest/v1/webhook-endpoints
+    - GET    https://api.salsa.dev/api/rest/v1/webhook-endpoints
+  webhookEventsSample:
+    - Employer.created
+    - Employer.onboardingStatus
+    - Worker.created
+    - Worker.onboardingStatus
+    - PayrollRun.statusChanged
+    - PayrollRun.EmployerFunding.statusChanged
+    - PayrollRun.WorkerDisbursement.MoneyMovementTransaction.statusChanged
+    - Transmission.completed
+    - Employer.TaxesSetup.updated
+sources:
+  - url: https://docs.salsa.dev/
+    type: Documentation
+    note: Developer docs (note the real docs host is docs.salsa.dev, not docs.salsa.com).
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+    note: REST reference; base URL https://api.salsa.dev/api/rest/v1. No WebSocket surface.
+  - url: https://docs.salsa.dev/docs/express-embedded-ui
+    type: Documentation
+    note: Salsa Express embeddable UI components powered by scoped user tokens.
+  - url: https://docs.salsa.dev/docs/payroll-run-via-api
+    type: Documentation
+    note: Running payroll via the API (Salsa Advanced).
+notes:
+  domainClarification: |
+    The provider's operating domain is salsa.dev (site www.salsa.dev, docs
+    docs.salsa.dev, API api.salsa.dev). salsa.com / docs.salsa.com do not
+    resolve to this provider. The catalog uses the accurate salsa.dev endpoints.
+    The GitHub organization is github.com/salsa-payroll (github.com/salsa is an
+    unrelated personal account and is not linked).
+actions:
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, so no AsyncAPI document was authored.
+    The webhook (HTTP callback) surface is represented as the Salsa Webhooks API
+    in apis.yml and cataloged in these findings.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

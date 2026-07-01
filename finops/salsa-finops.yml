@@ -1,0 +1,99 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Salsa
+providerId: salsa
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Payroll
+- Embedded Finance
+- Payroll as a Service
+- Fintech
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Salsa embedded payroll spend for a platform partner. Salsa
+  bills partners under a sales-quoted contract, typically per-active-paid-worker
+  per month (PEPM) plus a platform base fee, rather than per-API-call. The unit
+  cost driver is the count of active paid workers across the partner's employers
+  each pay cycle, so cost scales with the partner's payroll volume, not with API
+  request throughput. Money-movement (employer funding and worker disbursement)
+  is a pass-through of the actual payroll dollars and is separate from Salsa
+  platform fees.
+notes: >-
+  Public rates are not published; PEPM and base fees are sales-quoted. Verify the
+  exact billing metric (active vs. paid workers), base fee, and any off-cycle or
+  transaction fees against the partner agreement during reconciliation.
+sources:
+- https://www.salsa.dev/
+- https://www.salsa.dev/product
+- https://docs.salsa.dev/docs/building-with-salsa
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Salsa
+serviceCategory: Payroll and Embedded Finance
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Salsa Embedded Payroll
+  ServiceCategory: Payroll and Embedded Finance
+  ProviderName: Salsa
+  PublisherName: Salsa
+  InvoiceIssuerName: Salsa
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription-Based
+meters:
+- name: active_paid_workers
+  description: Count of active paid workers per employer per pay cycle - primary PEPM cost driver.
+  unit: workers
+  aggregation: sum
+  dimensions:
+  - partner
+  - employer
+  - country
+- name: platform_base_fee
+  description: Flat monthly platform fee charged to the partner independent of worker count.
+  unit: contract
+  aggregation: max
+  dimensions:
+  - partner
+- name: employer_count
+  description: Number of employers provisioned by the partner platform.
+  unit: employers
+  aggregation: sum
+  dimensions:
+  - partner
+- name: payroll_disbursement_dollars
+  description: Pass-through payroll funds moved (employer funding and worker disbursement); not a Salsa platform fee.
+  unit: USD
+  aggregation: sum
+  dimensions:
+  - partner
+  - employer
+principles:
+- name: Visibility
+  description: Track active paid workers per employer per cycle; reconcile PEPM against the Salsa partner invoice.
+- name: Allocation
+  description: Map worker counts to end-customer employers so payroll platform cost can be attributed or resold per company.
+- name: Optimization
+  description: Right-size the paid-worker base, prune inactive employers, and confirm the billing metric (active vs. paid) to avoid overcounting.
+- name: Accountability
+  description: Assign an owner for the Salsa partner relationship; review PEPM spend and payroll volume monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

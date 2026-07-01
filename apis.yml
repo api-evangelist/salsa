@@ -1,0 +1,230 @@
+aid: salsa
+url: https://raw.githubusercontent.com/api-evangelist/salsa/refs/heads/main/apis.yml
+name: Salsa
+kind: company
+description: Salsa is embedded payroll infrastructure that lets SaaS platforms add
+  native, multi-country (US and Canada) payroll to their products through REST and
+  GraphQL APIs, embeddable UI components (Salsa Express), and real-time webhooks.
+  Partner platforms provision employers and workers, run payroll, disburse worker
+  payments, and handle tax setup and filings without leaving their own app. API
+  access is partner-gated - Salsa issues sandbox and production Bearer API keys to
+  approved platform partners.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payroll
+- Embedded Finance
+- Payroll as a Service
+- Fintech
+- Payments
+- HR
+- Tax
+- Multi-Country
+created: '2026-07-01'
+modified: '2026-07-01'
+specificationVersion: '0.19'
+apis:
+- aid: salsa:salsa-companies-api
+  name: Salsa Companies API
+  tags:
+  - Employers
+  - Companies
+  - Onboarding
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.salsa.dev/reference
+  baseURL: https://api.salsa.dev/api/rest/v1
+  properties:
+  - url: https://docs.salsa.dev/docs/building-with-salsa
+    type: Documentation
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+  - url: openapi/salsa-openapi.yml
+    type: OpenAPI
+  - url: collections/salsa.postman_collection.json
+    type: PostmanCollection
+  - url: collections/salsa.opencollection.json
+    type: OpenCollection
+  description: Create and manage employer (company) entities - business identity,
+    addresses, bank accounts, signatories, work weeks, worker pay groups, and
+    per-employer pay/deduction/benefit/time-off type configuration - representing
+    a business that employs and pays workers through the partner platform.
+- aid: salsa:salsa-workers-api
+  name: Salsa Workers API
+  tags:
+  - Workers
+  - Employees
+  - Contractors
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.salsa.dev/reference
+  baseURL: https://api.salsa.dev/api/rest/v1
+  properties:
+  - url: https://docs.salsa.dev/docs/building-with-salsa
+    type: Documentation
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+  - url: openapi/salsa-openapi.yml
+    type: OpenAPI
+  - url: collections/salsa.postman_collection.json
+    type: PostmanCollection
+  - url: collections/salsa.opencollection.json
+    type: OpenCollection
+  description: Create and manage workers under an employer - W-2 employees and 1099
+    contractors - including contracts, work locations, bank accounts, personal
+    information, capabilities, and terminations.
+- aid: salsa:salsa-pay-schedules-api
+  name: Salsa Pay Schedules API
+  tags:
+  - Pay Schedules
+  - Pay Groups
+  - Work Weeks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.salsa.dev/reference
+  baseURL: https://api.salsa.dev/api/rest/v1
+  properties:
+  - url: https://docs.salsa.dev/docs/building-with-salsa
+    type: Documentation
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+  - url: openapi/salsa-openapi.yml
+    type: OpenAPI
+  - url: collections/salsa.postman_collection.json
+    type: PostmanCollection
+  - url: collections/salsa.opencollection.json
+    type: OpenCollection
+  description: Configure how and when workers are paid via worker pay groups, work
+    weeks, and pay types that define pay frequency and cadence for an employer's
+    payroll.
+- aid: salsa:salsa-payrolls-api
+  name: Salsa Payrolls API
+  tags:
+  - Payroll
+  - Pay Runs
+  - Reports
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.salsa.dev/docs/payroll-run-via-api
+  baseURL: https://api.salsa.dev/api/rest/v1
+  properties:
+  - url: https://docs.salsa.dev/docs/payroll-run-via-api
+    type: Documentation
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+  - url: openapi/salsa-openapi.yml
+    type: OpenAPI
+  - url: collections/salsa.postman_collection.json
+    type: PostmanCollection
+  - url: collections/salsa.opencollection.json
+    type: OpenCollection
+  description: Create, preview, modify, confirm, and delete payroll runs for an
+    employer, inspect payroll run state and payment records, and pull payroll
+    journal, cash requirements, and overtime reports.
+- aid: salsa:salsa-payments-api
+  name: Salsa Payments API
+  tags:
+  - Payments
+  - Disbursements
+  - Compensation
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.salsa.dev/reference
+  baseURL: https://api.salsa.dev/api/rest/v1
+  properties:
+  - url: https://docs.salsa.dev/docs/building-with-salsa
+    type: Documentation
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+  - url: openapi/salsa-openapi.yml
+    type: OpenAPI
+  - url: collections/salsa.postman_collection.json
+    type: PostmanCollection
+  - url: collections/salsa.opencollection.json
+    type: OpenCollection
+  description: Create and manage individual worker payments with pay, compensations,
+    and deductions; confirm, advance, and inspect payment records for off-cycle or
+    per-worker disbursements outside a full payroll run.
+- aid: salsa:salsa-onboarding-sessions-api
+  name: Salsa Onboarding & Sessions API
+  tags:
+  - Onboarding
+  - Sessions
+  - Tokens
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.salsa.dev/docs/express-embedded-ui
+  baseURL: https://api.salsa.dev/api/rest/v1
+  properties:
+  - url: https://docs.salsa.dev/docs/express-embedded-ui
+    type: Documentation
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+  - url: openapi/salsa-openapi.yml
+    type: OpenAPI
+  - url: collections/salsa.postman_collection.json
+    type: PostmanCollection
+  - url: collections/salsa.opencollection.json
+    type: OpenCollection
+  description: Mint scoped user API tokens (EMPLOYER_ADMIN) that power the embeddable
+    Salsa Express UI components, and create hosted onboarding flows plus mock-onboard
+    helpers for employers and workers in the sandbox.
+- aid: salsa:salsa-tax-api
+  name: Salsa Tax API
+  tags:
+  - Tax
+  - Withholding
+  - Compliance
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.salsa.dev/reference
+  baseURL: https://api.salsa.dev/api/rest/v1
+  properties:
+  - url: https://docs.salsa.dev/docs/building-with-salsa
+    type: Documentation
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+  - url: openapi/salsa-openapi.yml
+    type: OpenAPI
+  - url: collections/salsa.postman_collection.json
+    type: PostmanCollection
+  - url: collections/salsa.opencollection.json
+    type: OpenCollection
+  description: Manage employer and worker tax setup and withholding configuration,
+    surface tax documents, and receive tax-rate updates from agencies; tax
+    calculation, filing, and remittance run inside Salsa's payroll engine for US
+    and Canada.
+- aid: salsa:salsa-webhooks-api
+  name: Salsa Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.salsa.dev/reference
+  baseURL: https://api.salsa.dev/api/rest/v1
+  properties:
+  - url: https://docs.salsa.dev/docs/building-with-salsa
+    type: Documentation
+  - url: https://docs.salsa.dev/reference
+    type: APIReference
+  - url: openapi/salsa-openapi.yml
+    type: OpenAPI
+  - url: collections/salsa.postman_collection.json
+    type: PostmanCollection
+  - url: collections/salsa.opencollection.json
+    type: OpenCollection
+  description: Register and manage webhook endpoints to receive real-time events -
+    employer and worker lifecycle, onboarding status, bank account verification,
+    payroll run status, funding and disbursement money movement, tax updates, and
+    operational notifications.
+common:
+- type: GitHubOrganization
+  url: https://github.com/salsa-payroll
+- type: LinkedIn
+  url: https://www.linkedin.com/company/salsa-dev
+- type: Website
+  url: https://www.salsa.dev/
+- type: Documentation
+  url: https://docs.salsa.dev/
+- type: Plans
+  url: plans/salsa-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/salsa-rate-limits.yml
+- type: FinOps
+  url: finops/salsa-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
