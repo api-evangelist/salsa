@@ -211,6 +211,10 @@ apis:
     payroll run status, funding and disbursement money movement, tax updates, and
     operational notifications.
 common:
+- type: DomainSecurity
+  url: security/salsa-domain-security.yml
+- type: Authentication
+  url: authentication/salsa-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/salsa-payroll
 - type: LinkedIn
