@@ -211,6 +211,8 @@ apis:
     payroll run status, funding and disbursement money movement, tax updates, and
     operational notifications.
 common:
+- type: AgenticAccess
+  url: agentic-access/salsa-agentic-access.yml
 - type: DomainSecurity
   url: security/salsa-domain-security.yml
 - type: Authentication
