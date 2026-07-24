@@ -1,0 +1,45 @@
+openapi: 3.0.1
+info:
+  title: Salsa Payroll Companies Tax API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  termsOfService: https://www.salsa.dev/legal
+  contact:
+    name: Salsa Support
+    url: https://docs.salsa.dev/
+  version: rest-v1
+servers:
+- url: https://api.salsa.dev/api/rest/v1
+  description: Production (partner production API key)
+- url: https://api.sandbox.salsa.dev/api/rest/v1
+  description: Sandbox (partner sandbox API key)
+security:
+- bearerAuth: []
+tags:
+- name: Tax
+  description: Employer and worker tax setup.
+paths:
+  /employers/{employerId}/taxes-setup:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: getEmployerTaxSetup
+      tags:
+      - Tax
+      summary: Retrieve an employer's tax setup and withholding configuration.
+      responses:
+        '200':
+          description: Employer tax setup.
+components:
+  parameters:
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Partner Bearer API key. Approved Salsa platform partners receive separate sandbox and production keys. Send as `Authorization: Bearer ${YOUR_API_TOKEN}`.'

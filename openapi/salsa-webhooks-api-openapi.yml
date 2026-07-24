@@ -1,0 +1,115 @@
+openapi: 3.0.1
+info:
+  title: Salsa Payroll Companies Webhooks API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  termsOfService: https://www.salsa.dev/legal
+  contact:
+    name: Salsa Support
+    url: https://docs.salsa.dev/
+  version: rest-v1
+servers:
+- url: https://api.salsa.dev/api/rest/v1
+  description: Production (partner production API key)
+- url: https://api.sandbox.salsa.dev/api/rest/v1
+  description: Sandbox (partner sandbox API key)
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+  description: Webhook endpoint management.
+paths:
+  /webhook-endpoints:
+    post:
+      operationId: createWebhookEndpoint
+      tags:
+      - Webhooks
+      summary: Register a webhook endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointCreate'
+      responses:
+        '201':
+          description: Webhook endpoint created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+    get:
+      operationId: listWebhookEndpoints
+      tags:
+      - Webhooks
+      summary: Retrieve all webhook endpoints.
+      responses:
+        '200':
+          description: A list of webhook endpoints.
+  /webhook-endpoints/{webhookEndpointId}:
+    parameters:
+    - name: webhookEndpointId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWebhookEndpoint
+      tags:
+      - Webhooks
+      summary: Retrieve a webhook endpoint.
+      responses:
+        '200':
+          description: The webhook endpoint.
+    patch:
+      operationId: updateWebhookEndpoint
+      tags:
+      - Webhooks
+      summary: Update a webhook endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointCreate'
+      responses:
+        '200':
+          description: The updated webhook endpoint.
+components:
+  schemas:
+    WebhookEndpoint:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        eventTypes:
+          type: array
+          items:
+            type: string
+        secret:
+          type: string
+          description: Signing secret used to verify webhook payloads.
+    WebhookEndpointCreate:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+        eventTypes:
+          type: array
+          items:
+            type: string
+          example:
+          - Employer.created
+          - Worker.created
+          - PayrollRun.statusChanged
+          - Transmission.completed
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Partner Bearer API key. Approved Salsa platform partners receive separate sandbox and production keys. Send as `Authorization: Bearer ${YOUR_API_TOKEN}`.'

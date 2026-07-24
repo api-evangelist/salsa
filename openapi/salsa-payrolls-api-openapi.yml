@@ -1,0 +1,175 @@
+openapi: 3.0.1
+info:
+  title: Salsa Payroll Companies Payrolls API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  termsOfService: https://www.salsa.dev/legal
+  contact:
+    name: Salsa Support
+    url: https://docs.salsa.dev/
+  version: rest-v1
+servers:
+- url: https://api.salsa.dev/api/rest/v1
+  description: Production (partner production API key)
+- url: https://api.sandbox.salsa.dev/api/rest/v1
+  description: Sandbox (partner sandbox API key)
+security:
+- bearerAuth: []
+tags:
+- name: Payrolls
+  description: Payroll runs and reports.
+paths:
+  /employers/{employerId}/payroll-runs:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: createPayrollRun
+      tags:
+      - Payrolls
+      summary: Create a payroll run.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayrollRunCreate'
+      responses:
+        '201':
+          description: Payroll run created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayrollRun'
+    get:
+      operationId: listPayrollRuns
+      tags:
+      - Payrolls
+      summary: Retrieve payroll runs.
+      responses:
+        '200':
+          description: A list of payroll runs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayrollRun'
+  /employers/{employerId}/payroll-runs/{payrollRunId}:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    - $ref: '#/components/parameters/PayrollRunId'
+    get:
+      operationId: getPayrollRun
+      tags:
+      - Payrolls
+      summary: Retrieve a payroll run.
+      responses:
+        '200':
+          description: The payroll run.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayrollRun'
+    delete:
+      operationId: deletePayrollRun
+      tags:
+      - Payrolls
+      summary: Delete a payroll run.
+      responses:
+        '204':
+          description: Deleted.
+  /employers/{employerId}/payroll-runs/{payrollRunId}/preview:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    - $ref: '#/components/parameters/PayrollRunId'
+    post:
+      operationId: previewPayrollRun
+      tags:
+      - Payrolls
+      summary: Preview a payroll run (calculated gross-to-net before confirmation).
+      responses:
+        '200':
+          description: Payroll run preview.
+  /employers/{employerId}/payroll-runs/{payrollRunId}/confirm:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    - $ref: '#/components/parameters/PayrollRunId'
+    post:
+      operationId: confirmPayrollRun
+      tags:
+      - Payrolls
+      summary: Confirm a payroll run and initiate funding and disbursement.
+      responses:
+        '200':
+          description: Payroll run confirmed.
+  /employers/{employerId}/reports/payroll-journal:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: getPayrollJournalReport
+      tags:
+      - Payrolls
+      summary: Retrieve the payroll journal report.
+      responses:
+        '200':
+          description: The payroll journal report.
+components:
+  parameters:
+    PayrollRunId:
+      name: payrollRunId
+      in: path
+      required: true
+      description: The payroll run identifier.
+      schema:
+        type: string
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
+  schemas:
+    PayrollRunCreate:
+      type: object
+      required:
+      - workerPayGroupId
+      - payPeriodStart
+      - payPeriodEnd
+      - payDate
+      properties:
+        workerPayGroupId:
+          type: string
+        payPeriodStart:
+          type: string
+          format: date
+        payPeriodEnd:
+          type: string
+          format: date
+        payDate:
+          type: string
+          format: date
+    PayrollRun:
+      type: object
+      properties:
+        id:
+          type: string
+        employerId:
+          type: string
+        workerPayGroupId:
+          type: string
+        payPeriodStart:
+          type: string
+          format: date
+        payPeriodEnd:
+          type: string
+          format: date
+        payDate:
+          type: string
+          format: date
+        status:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Partner Bearer API key. Approved Salsa platform partners receive separate sandbox and production keys. Send as `Authorization: Bearer ${YOUR_API_TOKEN}`.'

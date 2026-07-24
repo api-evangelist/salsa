@@ -1,0 +1,194 @@
+openapi: 3.0.1
+info:
+  title: Salsa Payroll Companies API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  termsOfService: https://www.salsa.dev/legal
+  contact:
+    name: Salsa Support
+    url: https://docs.salsa.dev/
+  version: rest-v1
+servers:
+- url: https://api.salsa.dev/api/rest/v1
+  description: Production (partner production API key)
+- url: https://api.sandbox.salsa.dev/api/rest/v1
+  description: Sandbox (partner sandbox API key)
+security:
+- bearerAuth: []
+tags:
+- name: Companies
+  description: Employer (company) entities and configuration.
+paths:
+  /employers:
+    post:
+      operationId: createEmployer
+      tags:
+      - Companies
+      summary: Create an employer (company).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployerCreate'
+      responses:
+        '201':
+          description: Employer created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employer'
+    get:
+      operationId: listEmployers
+      tags:
+      - Companies
+      summary: Retrieve employers.
+      responses:
+        '200':
+          description: A list of employers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employer'
+  /employers/{employerId}:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: getEmployer
+      tags:
+      - Companies
+      summary: Retrieve an employer.
+      responses:
+        '200':
+          description: The employer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employer'
+    patch:
+      operationId: updateEmployer
+      tags:
+      - Companies
+      summary: Update an employer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployerCreate'
+      responses:
+        '200':
+          description: The updated employer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employer'
+    delete:
+      operationId: deleteEmployer
+      tags:
+      - Companies
+      summary: Delete an employer.
+      responses:
+        '204':
+          description: Deleted.
+  /employers/{employerId}/pay-types:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: listPayTypes
+      tags:
+      - Companies
+      summary: List an employer's pay types.
+      responses:
+        '200':
+          description: A list of pay types.
+    post:
+      operationId: createPayType
+      tags:
+      - Companies
+      summary: Create a pay type for an employer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Pay type created.
+  /employers/{employerId}/bank-accounts:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    get:
+      operationId: listEmployerBankAccounts
+      tags:
+      - Companies
+      summary: List an employer's bank accounts.
+      responses:
+        '200':
+          description: A list of bank accounts.
+    post:
+      operationId: createEmployerBankAccount
+      tags:
+      - Companies
+      summary: Create a bank account for an employer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Bank account created.
+components:
+  schemas:
+    Employer:
+      type: object
+      properties:
+        id:
+          type: string
+        businessName:
+          type: string
+        country:
+          type: string
+          enum:
+          - US
+          - CA
+        onboardingStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    EmployerCreate:
+      type: object
+      required:
+      - businessName
+      - country
+      properties:
+        businessName:
+          type: string
+        country:
+          type: string
+          enum:
+          - US
+          - CA
+        address:
+          type: object
+        ein:
+          type: string
+          description: US Employer Identification Number (or CA business number).
+  parameters:
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Partner Bearer API key. Approved Salsa platform partners receive separate sandbox and production keys. Send as `Authorization: Bearer ${YOUR_API_TOKEN}`.'

@@ -1,0 +1,110 @@
+openapi: 3.0.1
+info:
+  title: Salsa Payroll Companies Onboarding & Sessions API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  termsOfService: https://www.salsa.dev/legal
+  contact:
+    name: Salsa Support
+    url: https://docs.salsa.dev/
+  version: rest-v1
+servers:
+- url: https://api.salsa.dev/api/rest/v1
+  description: Production (partner production API key)
+- url: https://api.sandbox.salsa.dev/api/rest/v1
+  description: Sandbox (partner sandbox API key)
+security:
+- bearerAuth: []
+tags:
+- name: Onboarding & Sessions
+  description: User tokens, hosted onboarding, and mock onboarding.
+paths:
+  /user-tokens:
+    post:
+      operationId: createUserToken
+      tags:
+      - Onboarding & Sessions
+      summary: Create a scoped user API token (e.g. EMPLOYER_ADMIN) for the embeddable UI.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserTokenCreate'
+      responses:
+        '201':
+          description: A user token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserToken'
+  /employers/{employerId}/hosted-onboardings:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: createHostedEmployerOnboarding
+      tags:
+      - Onboarding & Sessions
+      summary: Create a hosted onboarding flow for an employer.
+      responses:
+        '201':
+          description: Hosted onboarding created.
+  /employers/{employerId}/mock-onboard:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: mockOnboardEmployer
+      tags:
+      - Onboarding & Sessions
+      summary: Simulate employer onboarding (sandbox only).
+      responses:
+        '200':
+          description: Employer mock-onboarded.
+  /employers/{employerId}/workers/mock-onboard:
+    parameters:
+    - $ref: '#/components/parameters/EmployerId'
+    post:
+      operationId: mockOnboardWorker
+      tags:
+      - Onboarding & Sessions
+      summary: Simulate worker onboarding (sandbox only).
+      responses:
+        '200':
+          description: Worker mock-onboarded.
+components:
+  parameters:
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
+  schemas:
+    UserToken:
+      type: object
+      properties:
+        token:
+          type: string
+        role:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+    UserTokenCreate:
+      type: object
+      required:
+      - employerId
+      - role
+      properties:
+        employerId:
+          type: string
+        role:
+          type: string
+          enum:
+          - EMPLOYER_ADMIN
+          - WORKER
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Partner Bearer API key. Approved Salsa platform partners receive separate sandbox and production keys. Send as `Authorization: Bearer ${YOUR_API_TOKEN}`.'
