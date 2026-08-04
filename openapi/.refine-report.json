@@ -1,0 +1,28 @@
+{
+  "provider": "salsa",
+  "sources": [
+    "salsa-companies-api-openapi.yml",
+    "salsa-onboarding-sessions-api-openapi.yml",
+    "salsa-pay-schedules-api-openapi.yml",
+    "salsa-payments-api-openapi.yml",
+    "salsa-payrolls-api-openapi.yml",
+    "salsa-tax-api-openapi.yml",
+    "salsa-webhooks-api-openapi.yml",
+    "salsa-workers-api-openapi.yml"
+  ],
+  "outputs": [
+    "salsa-companies-api-openapi.yml",
+    "salsa-onboarding-sessions-api-openapi.yml",
+    "salsa-pay-schedules-api-openapi.yml",
+    "salsa-payments-api-openapi.yml",
+    "salsa-payrolls-api-openapi.yml",
+    "salsa-tax-api-openapi.yml",
+    "salsa-webhooks-api-openapi.yml",
+    "salsa-workers-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
