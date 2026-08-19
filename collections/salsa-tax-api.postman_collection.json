@@ -1,0 +1,126 @@
+{
+  "item": [
+    {
+      "id": "f01da46b-210d-4c71-8d89-a5f94a784d95",
+      "name": "Tax",
+      "description": {
+        "content": "Employer and worker tax setup.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "788d9eab-92d0-4fcc-9143-e834666da180",
+          "name": "Retrieve an employer's tax setup and withholding configuration.",
+          "request": {
+            "name": "Retrieve an employer's tax setup and withholding configuration.",
+            "description": {},
+            "url": {
+              "path": [
+                "employers",
+                ":employerId",
+                "taxes-setup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "employerId",
+                  "description": "(Required) The employer (company) identifier."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c4f5dd90-7c2e-436d-b7f1-9888379ab398",
+              "name": "Employer tax setup.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "employers",
+                    ":employerId",
+                    "taxes-setup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "employerId",
+                      "description": "(Required) The employer (company) identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.salsa.dev/api/rest/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "741ee8ab-ca08-4db8-b8ee-7cb839282cdd",
+    "name": "Salsa Payroll Companies Tax API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.\n\nContact Support:\n Name: Salsa Support",
+      "type": "text/plain"
+    }
+  }
+}

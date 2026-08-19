@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salsa Payroll Companies Payrolls API",
+    "version": "rest-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payrolls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve payroll runs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve payroll runs."
+        },
+        {
+          "info": {
+            "name": "Create a payroll run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a payroll run."
+        },
+        {
+          "info": {
+            "name": "Retrieve a payroll run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs/:payrollRunId",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "payrollRunId",
+                "value": "",
+                "type": "path",
+                "description": "The payroll run identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve a payroll run."
+        },
+        {
+          "info": {
+            "name": "Delete a payroll run.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs/:payrollRunId",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "payrollRunId",
+                "value": "",
+                "type": "path",
+                "description": "The payroll run identifier."
+              }
+            ]
+          },
+          "docs": "Delete a payroll run."
+        },
+        {
+          "info": {
+            "name": "Preview a payroll run (calculated gross-to-net before confirmation).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs/:payrollRunId/preview",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "payrollRunId",
+                "value": "",
+                "type": "path",
+                "description": "The payroll run identifier."
+              }
+            ]
+          },
+          "docs": "Preview a payroll run (calculated gross-to-net before confirmation)."
+        },
+        {
+          "info": {
+            "name": "Confirm a payroll run and initiate funding and disbursement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/payroll-runs/:payrollRunId/confirm",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "payrollRunId",
+                "value": "",
+                "type": "path",
+                "description": "The payroll run identifier."
+              }
+            ]
+          },
+          "docs": "Confirm a payroll run and initiate funding and disbursement."
+        },
+        {
+          "info": {
+            "name": "Retrieve the payroll journal report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/reports/payroll-journal",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve the payroll journal report."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salsa Payroll Companies Pay Schedules API",
+    "version": "rest-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pay Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List an employer's worker pay groups (pay schedules).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/worker-pay-groups",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "List an employer's worker pay groups (pay schedules)."
+        },
+        {
+          "info": {
+            "name": "Create a worker pay group defining pay frequency and cadence.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/worker-pay-groups",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a worker pay group defining pay frequency and cadence."
+        },
+        {
+          "info": {
+            "name": "List an employer's work weeks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/work-weeks",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "List an employer's work weeks."
+        },
+        {
+          "info": {
+            "name": "Create a work week for an employer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/work-weeks",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a work week for an employer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

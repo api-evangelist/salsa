@@ -1,0 +1,253 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salsa Payroll Companies Workers API",
+    "version": "rest-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an employer's workers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve an employer's workers."
+        },
+        {
+          "info": {
+            "name": "Create a worker.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a worker."
+        },
+        {
+          "info": {
+            "name": "Retrieve a worker.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve a worker."
+        },
+        {
+          "info": {
+            "name": "Update a worker.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a worker."
+        },
+        {
+          "info": {
+            "name": "Delete a worker.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ]
+          },
+          "docs": "Delete a worker."
+        },
+        {
+          "info": {
+            "name": "List a worker's contracts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/contracts",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ]
+          },
+          "docs": "List a worker's contracts."
+        },
+        {
+          "info": {
+            "name": "Create a worker contract (W-2 employee or 1099 contractor terms).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/contracts",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a worker contract (W-2 employee or 1099 contractor terms)."
+        },
+        {
+          "info": {
+            "name": "List a worker's bank accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/bank-accounts",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ]
+          },
+          "docs": "List a worker's bank accounts."
+        },
+        {
+          "info": {
+            "name": "Create a bank account for a worker.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/bank-accounts",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a bank account for a worker."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

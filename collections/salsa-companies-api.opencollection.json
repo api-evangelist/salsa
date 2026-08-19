@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salsa Payroll Companies API",
+    "version": "rest-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve employers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers"
+          },
+          "docs": "Retrieve employers."
+        },
+        {
+          "info": {
+            "name": "Create an employer (company).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an employer (company)."
+        },
+        {
+          "info": {
+            "name": "Retrieve an employer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve an employer."
+        },
+        {
+          "info": {
+            "name": "Update an employer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an employer."
+        },
+        {
+          "info": {
+            "name": "Delete an employer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "Delete an employer."
+        },
+        {
+          "info": {
+            "name": "List an employer's pay types.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/pay-types",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "List an employer's pay types."
+        },
+        {
+          "info": {
+            "name": "Create a pay type for an employer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/pay-types",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a pay type for an employer."
+        },
+        {
+          "info": {
+            "name": "List an employer's bank accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/bank-accounts",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "List an employer's bank accounts."
+        },
+        {
+          "info": {
+            "name": "Create a bank account for an employer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/bank-accounts",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a bank account for an employer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

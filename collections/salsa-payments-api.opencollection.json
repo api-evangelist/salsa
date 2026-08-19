@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salsa Payroll Companies Payments API",
+    "version": "rest-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a worker's payments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/payments",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve a worker's payments."
+        },
+        {
+          "info": {
+            "name": "Create a worker payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/payments",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a worker payment."
+        },
+        {
+          "info": {
+            "name": "Confirm a worker payment for disbursement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/payments/:paymentId/confirm",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              },
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Confirm a worker payment for disbursement."
+        },
+        {
+          "info": {
+            "name": "Add a deduction to a worker payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/:workerId/payments/:paymentId/deductions",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              },
+              {
+                "name": "workerId",
+                "value": "",
+                "type": "path",
+                "description": "The worker identifier."
+              },
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a deduction to a worker payment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

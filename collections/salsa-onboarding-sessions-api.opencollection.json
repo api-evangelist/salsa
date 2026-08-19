@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salsa Payroll Companies Onboarding & Sessions API",
+    "version": "rest-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Onboarding & Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a scoped user API token (e.g. EMPLOYER_ADMIN) for the embeddable UI.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/user-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a scoped user API token (e.g. EMPLOYER_ADMIN) for the embeddable UI."
+        },
+        {
+          "info": {
+            "name": "Create a hosted onboarding flow for an employer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/hosted-onboardings",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "Create a hosted onboarding flow for an employer."
+        },
+        {
+          "info": {
+            "name": "Simulate employer onboarding (sandbox only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/mock-onboard",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "Simulate employer onboarding (sandbox only)."
+        },
+        {
+          "info": {
+            "name": "Simulate worker onboarding (sandbox only).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.salsa.dev/api/rest/v1/employers/:employerId/workers/mock-onboard",
+            "params": [
+              {
+                "name": "employerId",
+                "value": "",
+                "type": "path",
+                "description": "The employer (company) identifier."
+              }
+            ]
+          },
+          "docs": "Simulate worker onboarding (sandbox only)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
