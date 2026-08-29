@@ -9,6 +9,18 @@ description: Salsa is embedded payroll infrastructure that lets SaaS platforms a
   payments, and handle tax setup and filings without leaving their own app. API
   access is partner-gated - Salsa issues sandbox and production Bearer API keys to
   approved platform partners.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
