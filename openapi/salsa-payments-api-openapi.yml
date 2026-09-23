@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Salsa Payroll Companies Payments API
-  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  title: Salsa Payroll Payments API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API.
   termsOfService: https://www.salsa.dev/legal
   contact:
     name: Salsa Support
@@ -26,7 +26,7 @@ paths:
       operationId: createWorkerPayment
       tags:
       - Payments
-      summary: Create a worker payment.
+      summary: Create a worker payment
       requestBody:
         required: true
         content:
@@ -40,7 +40,7 @@ paths:
       operationId: listWorkerPayments
       tags:
       - Payments
-      summary: Retrieve a worker's payments.
+      summary: Retrieve a worker's payments
       responses:
         '200':
           description: A list of worker payments.
@@ -57,7 +57,7 @@ paths:
       operationId: confirmWorkerPayment
       tags:
       - Payments
-      summary: Confirm a worker payment for disbursement.
+      summary: Confirm a worker payment for disbursement
       responses:
         '200':
           description: Payment confirmed.
@@ -74,7 +74,7 @@ paths:
       operationId: createPaymentDeduction
       tags:
       - Payments
-      summary: Add a deduction to a worker payment.
+      summary: Add a deduction to a worker payment
       requestBody:
         required: true
         content:
@@ -86,18 +86,18 @@ paths:
           description: Deduction created.
 components:
   parameters:
-    EmployerId:
-      name: employerId
-      in: path
-      required: true
-      description: The employer (company) identifier.
-      schema:
-        type: string
     WorkerId:
       name: workerId
       in: path
       required: true
       description: The worker identifier.
+      schema:
+        type: string
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
       schema:
         type: string
   securitySchemes:

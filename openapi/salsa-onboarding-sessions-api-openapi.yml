@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Salsa Payroll Companies Onboarding & Sessions API
-  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  title: Salsa Payroll Onboarding & Sessions API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API.
   termsOfService: https://www.salsa.dev/legal
   contact:
     name: Salsa Support
@@ -23,7 +23,7 @@ paths:
       operationId: createUserToken
       tags:
       - Onboarding & Sessions
-      summary: Create a scoped user API token (e.g. EMPLOYER_ADMIN) for the embeddable UI.
+      summary: Create a scoped user API token (e.g. EMPLOYER_ADMIN) for the embeddable UI
       requestBody:
         required: true
         content:
@@ -44,7 +44,7 @@ paths:
       operationId: createHostedEmployerOnboarding
       tags:
       - Onboarding & Sessions
-      summary: Create a hosted onboarding flow for an employer.
+      summary: Create a hosted onboarding flow for an employer
       responses:
         '201':
           description: Hosted onboarding created.
@@ -55,7 +55,7 @@ paths:
       operationId: mockOnboardEmployer
       tags:
       - Onboarding & Sessions
-      summary: Simulate employer onboarding (sandbox only).
+      summary: Simulate employer onboarding (sandbox only)
       responses:
         '200':
           description: Employer mock-onboarded.
@@ -66,7 +66,7 @@ paths:
       operationId: mockOnboardWorker
       tags:
       - Onboarding & Sessions
-      summary: Simulate worker onboarding (sandbox only).
+      summary: Simulate worker onboarding (sandbox only)
       responses:
         '200':
           description: Worker mock-onboarded.

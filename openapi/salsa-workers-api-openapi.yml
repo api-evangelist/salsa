@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Salsa Payroll Companies Workers API
-  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  title: Salsa Payroll Workers API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API.
   termsOfService: https://www.salsa.dev/legal
   contact:
     name: Salsa Support
@@ -25,7 +25,7 @@ paths:
       operationId: createWorker
       tags:
       - Workers
-      summary: Create a worker.
+      summary: Create a worker
       requestBody:
         required: true
         content:
@@ -43,7 +43,7 @@ paths:
       operationId: listWorkers
       tags:
       - Workers
-      summary: Retrieve an employer's workers.
+      summary: Retrieve an employer's workers
       responses:
         '200':
           description: A list of workers.
@@ -61,7 +61,7 @@ paths:
       operationId: getWorker
       tags:
       - Workers
-      summary: Retrieve a worker.
+      summary: Retrieve a worker
       responses:
         '200':
           description: The worker.
@@ -73,7 +73,7 @@ paths:
       operationId: updateWorker
       tags:
       - Workers
-      summary: Update a worker.
+      summary: Update a worker
       requestBody:
         required: true
         content:
@@ -87,7 +87,7 @@ paths:
       operationId: deleteWorker
       tags:
       - Workers
-      summary: Delete a worker.
+      summary: Delete a worker
       responses:
         '204':
           description: Deleted.
@@ -99,7 +99,7 @@ paths:
       operationId: listWorkerContracts
       tags:
       - Workers
-      summary: List a worker's contracts.
+      summary: List a worker's contracts
       responses:
         '200':
           description: A list of contracts.
@@ -107,7 +107,7 @@ paths:
       operationId: createWorkerContract
       tags:
       - Workers
-      summary: Create a worker contract (W-2 employee or 1099 contractor terms).
+      summary: Create a worker contract (W-2 employee or 1099 contractor terms)
       requestBody:
         required: true
         content:
@@ -125,7 +125,7 @@ paths:
       operationId: listWorkerBankAccounts
       tags:
       - Workers
-      summary: List a worker's bank accounts.
+      summary: List a worker's bank accounts
       responses:
         '200':
           description: A list of bank accounts.
@@ -133,7 +133,7 @@ paths:
       operationId: createWorkerBankAccount
       tags:
       - Workers
-      summary: Create a bank account for a worker.
+      summary: Create a bank account for a worker
       requestBody:
         required: true
         content:
@@ -144,6 +144,21 @@ paths:
         '201':
           description: Bank account created.
 components:
+  parameters:
+    WorkerId:
+      name: workerId
+      in: path
+      required: true
+      description: The worker identifier.
+      schema:
+        type: string
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
   schemas:
     WorkerCreate:
       type: object
@@ -182,21 +197,6 @@ components:
           - CONTRACTOR
         onboardingStatus:
           type: string
-  parameters:
-    EmployerId:
-      name: employerId
-      in: path
-      required: true
-      description: The employer (company) identifier.
-      schema:
-        type: string
-    WorkerId:
-      name: workerId
-      in: path
-      required: true
-      description: The worker identifier.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

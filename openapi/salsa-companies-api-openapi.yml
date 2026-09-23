@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Salsa Payroll Companies API
-  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API.
   termsOfService: https://www.salsa.dev/legal
   contact:
     name: Salsa Support
@@ -23,7 +23,7 @@ paths:
       operationId: createEmployer
       tags:
       - Companies
-      summary: Create an employer (company).
+      summary: Create an employer (company)
       requestBody:
         required: true
         content:
@@ -41,7 +41,7 @@ paths:
       operationId: listEmployers
       tags:
       - Companies
-      summary: Retrieve employers.
+      summary: Retrieve employers
       responses:
         '200':
           description: A list of employers.
@@ -58,7 +58,7 @@ paths:
       operationId: getEmployer
       tags:
       - Companies
-      summary: Retrieve an employer.
+      summary: Retrieve an employer
       responses:
         '200':
           description: The employer.
@@ -70,7 +70,7 @@ paths:
       operationId: updateEmployer
       tags:
       - Companies
-      summary: Update an employer.
+      summary: Update an employer
       requestBody:
         required: true
         content:
@@ -88,7 +88,7 @@ paths:
       operationId: deleteEmployer
       tags:
       - Companies
-      summary: Delete an employer.
+      summary: Delete an employer
       responses:
         '204':
           description: Deleted.
@@ -99,7 +99,7 @@ paths:
       operationId: listPayTypes
       tags:
       - Companies
-      summary: List an employer's pay types.
+      summary: List an employer's pay types
       responses:
         '200':
           description: A list of pay types.
@@ -107,7 +107,7 @@ paths:
       operationId: createPayType
       tags:
       - Companies
-      summary: Create a pay type for an employer.
+      summary: Create a pay type for an employer
       requestBody:
         required: true
         content:
@@ -124,7 +124,7 @@ paths:
       operationId: listEmployerBankAccounts
       tags:
       - Companies
-      summary: List an employer's bank accounts.
+      summary: List an employer's bank accounts
       responses:
         '200':
           description: A list of bank accounts.
@@ -132,7 +132,7 @@ paths:
       operationId: createEmployerBankAccount
       tags:
       - Companies
-      summary: Create a bank account for an employer.
+      summary: Create a bank account for an employer
       requestBody:
         required: true
         content:
@@ -143,24 +143,15 @@ paths:
         '201':
           description: Bank account created.
 components:
+  parameters:
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
   schemas:
-    Employer:
-      type: object
-      properties:
-        id:
-          type: string
-        businessName:
-          type: string
-        country:
-          type: string
-          enum:
-          - US
-          - CA
-        onboardingStatus:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
     EmployerCreate:
       type: object
       required:
@@ -179,14 +170,23 @@ components:
         ein:
           type: string
           description: US Employer Identification Number (or CA business number).
-  parameters:
-    EmployerId:
-      name: employerId
-      in: path
-      required: true
-      description: The employer (company) identifier.
-      schema:
-        type: string
+    Employer:
+      type: object
+      properties:
+        id:
+          type: string
+        businessName:
+          type: string
+        country:
+          type: string
+          enum:
+          - US
+          - CA
+        onboardingStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
   securitySchemes:
     bearerAuth:
       type: http

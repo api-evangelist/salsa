@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Salsa Payroll Companies Pay Schedules API
-  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  title: Salsa Payroll Pay Schedules API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API.
   termsOfService: https://www.salsa.dev/legal
   contact:
     name: Salsa Support
@@ -25,7 +25,7 @@ paths:
       operationId: listWorkerPayGroups
       tags:
       - Pay Schedules
-      summary: List an employer's worker pay groups (pay schedules).
+      summary: List an employer's worker pay groups (pay schedules)
       responses:
         '200':
           description: A list of pay groups.
@@ -33,7 +33,7 @@ paths:
       operationId: createWorkerPayGroup
       tags:
       - Pay Schedules
-      summary: Create a worker pay group defining pay frequency and cadence.
+      summary: Create a worker pay group defining pay frequency and cadence
       requestBody:
         required: true
         content:
@@ -50,7 +50,7 @@ paths:
       operationId: listWorkWeeks
       tags:
       - Pay Schedules
-      summary: List an employer's work weeks.
+      summary: List an employer's work weeks
       responses:
         '200':
           description: A list of work weeks.
@@ -58,7 +58,7 @@ paths:
       operationId: createWorkWeek
       tags:
       - Pay Schedules
-      summary: Create a work week for an employer.
+      summary: Create a work week for an employer
       requestBody:
         required: true
         content:

@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Salsa Payroll Companies Payrolls API
-  description: Representative OpenAPI description of the Salsa embedded payroll REST API. Salsa is partner-gated payroll infrastructure - approved platform partners receive separate sandbox and production Bearer API keys and use these endpoints to provision employers and workers, run payroll, disburse worker payments, configure tax, and manage webhooks for US and Canada. This is a faithful, representative subset of the surface documented at https://docs.salsa.dev/reference and is not the vendor's official machine specification.
+  title: Salsa Payroll Payrolls API
+  description: Representative OpenAPI description of the Salsa embedded payroll REST API.
   termsOfService: https://www.salsa.dev/legal
   contact:
     name: Salsa Support
@@ -25,7 +25,7 @@ paths:
       operationId: createPayrollRun
       tags:
       - Payrolls
-      summary: Create a payroll run.
+      summary: Create a payroll run
       requestBody:
         required: true
         content:
@@ -43,7 +43,7 @@ paths:
       operationId: listPayrollRuns
       tags:
       - Payrolls
-      summary: Retrieve payroll runs.
+      summary: Retrieve payroll runs
       responses:
         '200':
           description: A list of payroll runs.
@@ -61,7 +61,7 @@ paths:
       operationId: getPayrollRun
       tags:
       - Payrolls
-      summary: Retrieve a payroll run.
+      summary: Retrieve a payroll run
       responses:
         '200':
           description: The payroll run.
@@ -73,7 +73,7 @@ paths:
       operationId: deletePayrollRun
       tags:
       - Payrolls
-      summary: Delete a payroll run.
+      summary: Delete a payroll run
       responses:
         '204':
           description: Deleted.
@@ -85,7 +85,7 @@ paths:
       operationId: previewPayrollRun
       tags:
       - Payrolls
-      summary: Preview a payroll run (calculated gross-to-net before confirmation).
+      summary: Preview a payroll run (calculated gross-to-net before confirmation)
       responses:
         '200':
           description: Payroll run preview.
@@ -97,7 +97,7 @@ paths:
       operationId: confirmPayrollRun
       tags:
       - Payrolls
-      summary: Confirm a payroll run and initiate funding and disbursement.
+      summary: Confirm a payroll run and initiate funding and disbursement
       responses:
         '200':
           description: Payroll run confirmed.
@@ -108,24 +108,24 @@ paths:
       operationId: getPayrollJournalReport
       tags:
       - Payrolls
-      summary: Retrieve the payroll journal report.
+      summary: Retrieve the payroll journal report
       responses:
         '200':
           description: The payroll journal report.
 components:
   parameters:
-    PayrollRunId:
-      name: payrollRunId
-      in: path
-      required: true
-      description: The payroll run identifier.
-      schema:
-        type: string
     EmployerId:
       name: employerId
       in: path
       required: true
       description: The employer (company) identifier.
+      schema:
+        type: string
+    PayrollRunId:
+      name: payrollRunId
+      in: path
+      required: true
+      description: The payroll run identifier.
       schema:
         type: string
   schemas:
