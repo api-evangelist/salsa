@@ -143,14 +143,6 @@ paths:
         '201':
           description: Bank account created.
 components:
-  parameters:
-    EmployerId:
-      name: employerId
-      in: path
-      required: true
-      description: The employer (company) identifier.
-      schema:
-        type: string
   schemas:
     EmployerCreate:
       type: object
@@ -187,6 +179,14 @@ components:
         createdAt:
           type: string
           format: date-time
+  parameters:
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

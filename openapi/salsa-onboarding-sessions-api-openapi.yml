@@ -80,16 +80,6 @@ components:
       schema:
         type: string
   schemas:
-    UserToken:
-      type: object
-      properties:
-        token:
-          type: string
-        role:
-          type: string
-        expiresAt:
-          type: string
-          format: date-time
     UserTokenCreate:
       type: object
       required:
@@ -103,6 +93,16 @@ components:
           enum:
           - EMPLOYER_ADMIN
           - WORKER
+    UserToken:
+      type: object
+      properties:
+        token:
+          type: string
+        role:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
   securitySchemes:
     bearerAuth:
       type: http

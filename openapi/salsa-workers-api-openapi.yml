@@ -145,13 +145,6 @@ paths:
           description: Bank account created.
 components:
   parameters:
-    WorkerId:
-      name: workerId
-      in: path
-      required: true
-      description: The worker identifier.
-      schema:
-        type: string
     EmployerId:
       name: employerId
       in: path
@@ -159,7 +152,32 @@ components:
       description: The employer (company) identifier.
       schema:
         type: string
+    WorkerId:
+      name: workerId
+      in: path
+      required: true
+      description: The worker identifier.
+      schema:
+        type: string
   schemas:
+    Worker:
+      type: object
+      properties:
+        id:
+          type: string
+        employerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        workerType:
+          type: string
+          enum:
+          - EMPLOYEE
+          - CONTRACTOR
+        onboardingStatus:
+          type: string
     WorkerCreate:
       type: object
       required:
@@ -179,24 +197,6 @@ components:
           enum:
           - EMPLOYEE
           - CONTRACTOR
-    Worker:
-      type: object
-      properties:
-        id:
-          type: string
-        employerId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        workerType:
-          type: string
-          enum:
-          - EMPLOYEE
-          - CONTRACTOR
-        onboardingStatus:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http
