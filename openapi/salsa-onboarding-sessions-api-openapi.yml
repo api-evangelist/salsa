@@ -71,14 +71,6 @@ paths:
         '200':
           description: Worker mock-onboarded.
 components:
-  parameters:
-    EmployerId:
-      name: employerId
-      in: path
-      required: true
-      description: The employer (company) identifier.
-      schema:
-        type: string
   schemas:
     UserTokenCreate:
       type: object
@@ -103,6 +95,14 @@ components:
         expiresAt:
           type: string
           format: date-time
+  parameters:
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
