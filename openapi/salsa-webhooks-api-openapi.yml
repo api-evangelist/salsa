@@ -76,21 +76,6 @@ paths:
           description: The updated webhook endpoint.
 components:
   schemas:
-    WebhookEndpoint:
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
-          format: uri
-        eventTypes:
-          type: array
-          items:
-            type: string
-        secret:
-          type: string
-          description: Signing secret used to verify webhook payloads.
     WebhookEndpointCreate:
       type: object
       required:
@@ -108,6 +93,21 @@ components:
           - Worker.created
           - PayrollRun.statusChanged
           - Transmission.completed
+    WebhookEndpoint:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        eventTypes:
+          type: array
+          items:
+            type: string
+        secret:
+          type: string
+          description: Signing secret used to verify webhook payloads.
   securitySchemes:
     bearerAuth:
       type: http

@@ -71,7 +71,25 @@ paths:
         '200':
           description: Worker mock-onboarded.
 components:
+  parameters:
+    EmployerId:
+      name: employerId
+      in: path
+      required: true
+      description: The employer (company) identifier.
+      schema:
+        type: string
   schemas:
+    UserToken:
+      type: object
+      properties:
+        token:
+          type: string
+        role:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
     UserTokenCreate:
       type: object
       required:
@@ -85,24 +103,6 @@ components:
           enum:
           - EMPLOYER_ADMIN
           - WORKER
-    UserToken:
-      type: object
-      properties:
-        token:
-          type: string
-        role:
-          type: string
-        expiresAt:
-          type: string
-          format: date-time
-  parameters:
-    EmployerId:
-      name: employerId
-      in: path
-      required: true
-      description: The employer (company) identifier.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
