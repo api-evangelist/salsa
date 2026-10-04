@@ -1,0 +1,80 @@
+slug: salsa
+provider: Salsa
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Payrolls
+  spec_file: salsa-payrolls-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.9
+  evidence: POST /employers/{employerId}/payroll-runs/{payrollRunId}/preview previewPayrollRun  Preview
+    a payroll run (calculated gross-to-net before confirmation)
+  reason: Payroll run lifecycle with gross-to-net calculation, confirmation/funding and a payroll journal
+    report is unambiguously payroll processing, which the frame places under HR Operations Management
+    (payroll administration).
+- tag: Companies
+  spec_file: salsa-companies-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.82
+  evidence: POST /employers createEmployer 'Create an employer (company)'; GET /employers/{employerId}/pay-types
+    'List an employer's pay types'; POST /employers/{employerId}/bank-accounts
+  reason: Despite the tag 'Companies', the operations set up employer entities, pay types and funding
+    bank accounts inside an embedded payroll product — payroll administration under HR Operations Management.
+    Pay-type definition brushes Compensation & Benefits, hence not 0.95.
+- tag: Payments
+  spec_file: salsa-payments-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.8
+  evidence: POST /employers/{employerId}/workers/{workerId}/payments/{paymentId}/confirm confirmWorkerPayment  Confirm
+    a worker payment for disbursement
+  reason: Creating, listing, confirming worker payments and adding payment deductions is wage disbursement
+    — payroll administration within HR Operations Management. Not a general treasury or AP payment flow
+    since payments are strictly per-worker under an employer.
+- tag: Workers
+  spec_file: salsa-workers-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.8
+  evidence: POST /employers/{employerId}/workers/{workerId}/contracts createWorkerContract  Create a worker
+    contract (W-2 employee or 1099 contractor terms)
+  reason: Worker master records, employment contract terms (W-2/1099) and worker bank accounts for pay
+    are employee record keeping in service of payroll — HR Operations Management. Not talent acquisition,
+    as there is no sourcing or requisition surface.
+- tag: Pay Schedules
+  spec_file: salsa-pay-schedules-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.75
+  evidence: POST /employers/{employerId}/worker-pay-groups createWorkerPayGroup  Create a worker pay group
+    defining pay frequency and cadence
+  reason: Operations define pay groups (pay frequency/cadence) and work weeks for an employer — core payroll
+    administration configuration, which sits under HR Operations Management. Some ambiguity versus Compensation
+    & Benefits, but pay cycle setup is payroll administration rather than pay structure design.
+- tag: Webhooks
+  spec_file: salsa-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.75
+  evidence: POST /webhook-endpoints createWebhookEndpoint  Register a webhook endpoint
+  reason: CRUD over webhook endpoint registrations for the vendor's outbound real-time events matches
+    the frame's explicit Webhook & Event Subscription Management sub-capability of the developer platform.
+    It is integration plumbing, but the frame names it as a capability.

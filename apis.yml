@@ -237,6 +237,9 @@ apis:
   - type: Documentation
     url: https://docs.salsa.dev/docs/express-embedded-ui
 common:
+- type: CapabilityMap
+  url: capabilities/salsa-capability-edges.yml
+  name: Salsa Business Capability Map
 - type: AgenticAccess
   url: agentic-access/salsa-agentic-access.yml
 - type: DomainSecurity
